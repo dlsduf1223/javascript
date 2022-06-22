@@ -115,7 +115,7 @@ var 오브젝트 = {
 var 사람 ={
   name:손흥민,
   Sayhi: ()=>{
-    console.log('안녕 나는'+사람.name)
+    console.log('안녕 나는'+this.name)
   }
 }
 사람.Sayhi();
@@ -126,9 +126,9 @@ var 자료 ={
   data : [1,2,3,4,5],
 }
 
-전부더하기() = ()=>{
+자료.전부더하기() = function(){
   var b = 0;
-  자료.data.forEach((a)=>{
+  this.data.forEach((a)=>{
     b=b+a;
   });
   console.log(b);
@@ -137,4 +137,5 @@ var 자료 ={
 전부더하기();
 
 //예제 3번
-'click', setTimeout((function(){console.log('안녕)')},1000));
+'click', setTimeout((()=>{console.log(this.innerHTML)},1000)); //함수 내의 'this' 때문에 arrow function을 이용해야됨...  이벤트리스너내의 사용 HTML 태그 'this'를 물려받기 위해..
+                                                               //function(){...} 로 함수를 만들면 'this'는 window가 나온다.
