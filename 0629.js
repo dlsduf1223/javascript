@@ -122,3 +122,112 @@ var 자식 = Object.create(부모); //상속관계 설정
 var 손자 = Object.create(자식); //그 아랫세대도 설정
 
 /*--------------------------------------------------------------------------------------------------*/
+
+class 부모 {
+  constructor() {
+    this.name = "kim";
+  }
+} //ES6의 constructor 만드는 법
+
+var 자식 = new 부모();
+
+//함수추가는
+
+class 부모 {
+  constructor() {
+    this.name = "kim";
+    //직접 물려주게 되는 함수
+  }
+
+  //여기다가도 함수 추가 가능, prototype에 추가되는 함수
+}
+
+자식.__proto__;
+부모.prototype;
+Object.getPrototypeOf(자식);
+
+//모두 같은 뜻.. 유전자검사를 하겠다..
+
+/*--------------------------------------------------------------------------------------------------*/
+//------extends/super-------//
+//extends(class 상속): class를 즉 생성자를 여러개 만들때, 하드코딩하지말고 extends로 쓰면 된다.
+
+class 할아버지 {
+  constructor(name) {
+    this.성 = "kim";
+    this.이름 = "name";
+  }
+}
+
+class 아버지 extends 할아버지 {
+  constructor() {
+    super(); //extends한 '할아버지'의 속성을 모두 재사용하겠다.... 즉, 위 할아버지 생성자의 this.성, this.이름을 의미하겠지
+    this.나이 = 50; //extends해서 만든 class는 this를 바로 못끄고 super()다음에 써야합니다.
+  }
+}
+
+var 아버지1 = new 아버지();
+
+//파라미터가 있으면 super(name)처럼 괄호안에....
+
+//constructor 밖에서의 super는 super.sayHi(0); 처럼 부모 프로토타입을 의미.. __proto__와 비슷한 의미다.
+
+var 사람 = {
+  name:'park',
+  age:30,
+
+  nextAge(){
+    return this.age+1;
+  },          //나이를 먹는 함수
+  setAge(나이){
+    this.age = 나이; 
+  }           //나이를 설정하는 함수
+
+}
+
+사람.age+1; //처럼 직관적으로 쓰기 보다, 함수를 만들어서 데이터를 변경하는 편이 좋다.
+
+
+
+// getter/setter :::: get: 데이터를 꺼내오는 함수, set: 데이터를 변경하는 함수
+// 즉, 위 함수들 중
+
+get nextAge(){
+
+}
+set setAge(나이){
+
+}//이렇게 쓸 수 있다. 공통된 특징은 위 메쏘드를 사용할때 소괄호가 필요없다는 것, 마치 프로퍼티화 시키는 듯..
+//like 사람.setAge=20;, 사람.getAge
+
+//get 함수들은 "return"이 무조건 있어야하고, 파라미터가 없어야한다.
+//set 함수들은 "parameter"가 무조건 1개만 있어야 한다.
+
+/*--------------------------------------------------------------------------------------------------*/
+//예제1
+
+class 강아지{
+  constructor(type,color){
+    this.타입 = type;
+    this.색 =color;
+  }
+
+
+}
+
+var 강아지1 = new 강아지('말티즈', 'white');
+var 강아지2 = new 강아지('진돗개','brown');
+
+//예제2
+class 고양이 extends 강아지{
+  constructor(type,color,age){
+    super(type,color);
+  this.나이=age;
+  }
+  get nextAge(){
+    return age+1;
+
+  }
+}
+
+//예제3 : 한살먹기 함수...
