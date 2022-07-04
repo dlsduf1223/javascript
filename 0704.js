@@ -97,3 +97,38 @@ function 둘째함수() {
 }
 
 첫째함수(둘째함수); //이러면 무조건 순차적으로 실행 됨
+// 이러한 콜백함수의 문제점
+// - 코드가 복잡해진다
+
+첫째함수(){
+  둘째함수(){
+    셋째함수(){
+
+    }
+  }
+}
+
+//그래서 쓰는 것이 Promise
+//위에 Promise 오브젝트를 미리 설계해두고나서
+
+첫째함수().then(function(){
+
+}).then(function(){          //then 은 Promise에서 성공이 출력될 경우, catch는 실패가 출력될 경우
+
+}).catch(function(){
+
+})
+
+//Promise 오브젝트를 설계하는 방법
+
+var 프로미스 = new Promise(function(resolve,reject){
+  var 연산 = 1+1;
+  resolve(연산);
+});    //Promise는 성공/실패 판정하는 기계...성공(), 실패()를 다 설계해줘야댐.
+
+프로미스.then(function(결과){           ///위의 '연산'의 값이 아래 '결과'로 넘어오게 됩니다.
+  console.log('성공입니다.'+결과)
+}).catch(function(){
+  console.log('실패입니다.');
+})
+
