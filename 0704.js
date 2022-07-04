@@ -132,3 +132,54 @@ var 프로미스 = new Promise(function(resolve,reject){
   console.log('실패입니다.');
 })
 
+/*--------------------------------------------------------------------------------------------------*/
+
+//이미지 로딩 체크 (로딩이 잘되었는지 안되었는지)
+
+var 이미지로딩 = new Promise(function(resolve,reject){
+  var img = document.querySelector('#test');
+  img.addEventListener('load',function(){
+    성공();
+  })
+  img.addEventListener('error',function(){
+    실패();
+  })
+
+  이미지로딩.then(function(){
+    console.log('로딩 성공');
+  }).catch(function(){
+    console.log('로딩 실패');
+  })
+})
+
+/*--------------------------------------------------------------------------------------------------*/
+
+
+//get요청이란?  서버(서버주소)에서 자료 좀 갖다주세요~
+
+$.get('서버주소').done(function(결과){
+  console.log(결과)
+})
+
+/*--------------------------------------------------------------------------------------------------*/
+//프로미스를 체인시키는 방법(연쇄적으로 사용)
+
+프로미스.then(function(결과){
+  console.log(결과)
+  return new Promise((성공,실패)=>{    //then이 실행된 자리에 Promise를 또 남기겠다.
+
+  }).then(function(){
+
+  })
+})
+
+//URL을 파라미터로 하는 함수
+
+function ajax함수(URL){
+  return new Promise((성공,실패)=>{
+    $.get(URL).done(function(결과){
+      성공(결과);
+    })
+  })
+}
+
